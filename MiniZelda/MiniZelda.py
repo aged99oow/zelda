@@ -1,5 +1,5 @@
 #
-# MiniZelda.py 2023/4/8
+# MiniZelda.py 2025/1/22
 #
 import pyxel
 import mzfont
@@ -131,7 +131,7 @@ class App:
         self.pause = False
 
     def __init__(self):
-        pyxel.init(MAP_SIZE_X*16, Y_ALIGN+MAP_SIZE_Y*16, title='Mini Zelda')
+        pyxel.init(MAP_SIZE_X*16, Y_ALIGN+MAP_SIZE_Y*16, title='Mini Zelda 1.1')
         pyxel.load('assets/MiniZelda.pyxres')
         #pyxel.mouse(True)
         self.newgame()
@@ -221,19 +221,19 @@ class App:
         return newenemy
 
     def tilemapget(self, mxy):
-        return pyxel.tilemap(0).pget(MAP_LIST[mxy[0]][0]*32+mxy[1]*2, MAP_LIST[mxy[0]][1]*24+mxy[2]*2)
+        return pyxel.tilemaps[0].pget(MAP_LIST[mxy[0]][0]*32+mxy[1]*2, MAP_LIST[mxy[0]][1]*24+mxy[2]*2)
 
     def tilemapset(self, mxy, uv):
         if uv in ((0,0),(0,1),(1,0),(1,1)):
-            pyxel.tilemap(0).pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2  , MAP_LIST[mxy[0]][1]*24+mxy[2]*2  ,uv)
-            pyxel.tilemap(0).pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2+1, MAP_LIST[mxy[0]][1]*24+mxy[2]*2  ,uv)
-            pyxel.tilemap(0).pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2  , MAP_LIST[mxy[0]][1]*24+mxy[2]*2+1,uv)
-            pyxel.tilemap(0).pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2+1, MAP_LIST[mxy[0]][1]*24+mxy[2]*2+1,uv)
+            pyxel.tilemaps[0].pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2  , MAP_LIST[mxy[0]][1]*24+mxy[2]*2  ,uv)
+            pyxel.tilemaps[0].pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2+1, MAP_LIST[mxy[0]][1]*24+mxy[2]*2  ,uv)
+            pyxel.tilemaps[0].pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2  , MAP_LIST[mxy[0]][1]*24+mxy[2]*2+1,uv)
+            pyxel.tilemaps[0].pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2+1, MAP_LIST[mxy[0]][1]*24+mxy[2]*2+1,uv)
         else:
-            pyxel.tilemap(0).pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2  , MAP_LIST[mxy[0]][1]*24+mxy[2]*2  ,(uv[0],  uv[1]  ))
-            pyxel.tilemap(0).pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2+1, MAP_LIST[mxy[0]][1]*24+mxy[2]*2  ,(uv[0]+1,uv[1]  ))
-            pyxel.tilemap(0).pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2  , MAP_LIST[mxy[0]][1]*24+mxy[2]*2+1,(uv[0],  uv[1]+1))
-            pyxel.tilemap(0).pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2+1, MAP_LIST[mxy[0]][1]*24+mxy[2]*2+1,(uv[0]+1,uv[1]+1))
+            pyxel.tilemaps[0].pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2  , MAP_LIST[mxy[0]][1]*24+mxy[2]*2  ,(uv[0],  uv[1]  ))
+            pyxel.tilemaps[0].pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2+1, MAP_LIST[mxy[0]][1]*24+mxy[2]*2  ,(uv[0]+1,uv[1]  ))
+            pyxel.tilemaps[0].pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2  , MAP_LIST[mxy[0]][1]*24+mxy[2]*2+1,(uv[0],  uv[1]+1))
+            pyxel.tilemaps[0].pset(MAP_LIST[mxy[0]][0]*32+mxy[1]*2+1, MAP_LIST[mxy[0]][1]*24+mxy[2]*2+1,(uv[0]+1,uv[1]+1))
 
     def repair_prevmap(self): 
         if self.prevmap_reveal1:
@@ -1040,7 +1040,7 @@ class Map:
         Map.zmap = [[MP_NONE]*MAP_SIZE_Y for i in range(MAP_SIZE_X)]
         for x in range(MAP_SIZE_X):
             for y in range(MAP_SIZE_Y):
-                tm = pyxel.tilemap(0).pget(MAP_LIST[cls.now_map][0]*32+x*2, MAP_LIST[cls.now_map][1]*24+y*2)
+                tm = pyxel.tilemaps[0].pget(MAP_LIST[cls.now_map][0]*32+x*2, MAP_LIST[cls.now_map][1]*24+y*2)
                 if (cls.now_map in BSECRET_MAP or cls.now_map in FSECRET_MAP or cls.now_map in PSECRET_MAP) and \
                         x==SECRET_XY[cls.now_map][0] and y==SECRET_XY[cls.now_map][1]:
                     cls.cave_x, cls.cave_y = x, y
